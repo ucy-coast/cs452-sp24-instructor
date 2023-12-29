@@ -1,4 +1,4 @@
-# Lab: Caching
+# Lab: Memcached
 
 This lab tutorial will introduce you to the Memcached memory-caching system. 
 

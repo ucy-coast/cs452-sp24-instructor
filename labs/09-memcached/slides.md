@@ -1,5 +1,5 @@
 ---
-title       : Data Services
+title       : Memcached
 author      : Haris Volos
 description : This is an introduction to using Memcached with Go
 keywords    : memcached
@@ -63,7 +63,7 @@ theme       : jobs
 
 <!-- _class: titlepage -->s: titlepage -->
 
-# Lab: Data Services
+# Lab: Memcached
 
 ---
 

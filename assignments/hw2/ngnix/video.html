@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Live Streaming</title>
+    <link href="https://vjs.zencdn.net/8.6.1/video-js.css" rel="stylesheet" />
+    <script src="https://vjs.zencdn.net/8.6.1/video.min.js"></script>
+</head <body>
+<video id="player" class="video-js vjs-default-skin" height="360" width="640" controls preload="none">
+    <source id="video-source" type="application/x-mpegURL" />
+</video>
+
+ <script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const url = urlParams.get('url')
+    console.log(url);
+
+    var videoSource = document.getElementById('video-source');
+
+    videoSource.setAttribute('src', url);
+
+    var player = videojs('#player');
+</script>
+</body>
+</html>

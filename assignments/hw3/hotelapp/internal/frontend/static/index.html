@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotels</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.2.1/css/ol.css" type="text/css">
+  <style>
+    #map {
+      width: 100%;
+      height: 400px;
+    }
+    .tooltip {
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 4px;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      pointer-events: none;
+      width: 200px; /* Set the width as needed */
+    }    
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <div id="tooltip" class="tooltip"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.2.1/build/ol.js"></script>
+  <script>
+    // Calculate the center of the area to zoom into
+    // using San Francisco center coordinates
+    var centerCoordinates = [-122.4005,37.7854]; 
+    var center = ol.proj.fromLonLat(centerCoordinates);
+
+    // Create a vector source with a URL to the GeoJSON file containing points
+    var vectorSource = new ol.source.Vector({
+      url: "/hotels?inDate=2015-04-09&outDate=2015-04-10&lat=37.7749&lon=-122.4194",
+      format: new ol.format.GeoJSON(),
+    });
+
+    // Define the style for the points (red color)
+    var style = new ol.style.Style({
+      image: new ol.style.Circle({
+        radius: 6,
+        fill: new ol.style.Fill({ color: 'red' }),
+        stroke: new ol.style.Stroke({ color: 'white', width: 2 }),
+      }),
+    });
+
+    // Create a vector layer
+    var vectorLayer = new ol.layer.Vector({
+      source: vectorSource,
+      style: style
+    });
+
+    // Create a map
+    var map = new ol.Map({
+      target: 'map',
+      layers: [
+        new ol.layer.Tile({
+          source: new ol.source.OSM(),
+        }),
+        vectorLayer,
+      ],
+      view: new ol.View({
+        center: center, // Center the map at the equator and prime meridian
+        zoom: 12, // Initial zoom level
+      }),
+    });
+
+    // Add a tooltip overlay
+    var tooltip = new ol.Overlay({
+      element: document.getElementById('tooltip'),
+      offset: [10, 0],
+      positioning: 'bottom-left',
+    });
+    map.addOverlay(tooltip);
+
+    // Show tooltip on pointer move
+    map.on('pointermove', function (event) {
+      var feature = map.forEachFeatureAtPixel(event.pixel, function (feature) {
+        return feature;
+      });
+      if (feature) {
+        var properties = feature.getProperties();
+        var content = properties['name'] + '<br>';
+        content += properties['phone_number'] + '<br>';
+        tooltip.setPosition(event.coordinate);
+        tooltip.getElement().innerHTML = content;        
+        tooltip.getElement().style.display = 'block';
+      } else {
+        tooltip.getElement().style.display = 'none';
+      }
+    });
+
+    // Hide tooltip on map click
+    map.on('click', function () {
+      tooltip.getElement().style.display = 'none';
+    });    
+  </script>
+</body>
+</html>

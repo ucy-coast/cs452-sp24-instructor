@@ -6,9 +6,11 @@ This is an individual assignment to be conducted individually by each student.
 
 ## Sharding Hotel App
 
-In this assignment, we will delve into the application of sharding to scale the memory capacity of individual services. While we've previously explored scaling out services through replication, replication only increases the compute capacity of microservices by adding more container instances per microservice to manage a higher request volume. However, each microservice instance has a finite dataset capacity, constrained by the available memory (and/or storage) on its respective node. In this assignment, you will leverage sharding as a solution to overcome these memory capacity limitations.
+In this assignment, we will apply sharding to scale the memory capacity of individual services. We've previously explored scaling out services through replication, which increases the compute capacity of microservices by adding more container instances per microservice to manage a higher request volume. 
+However, each microservice instance can accommodate only a limited amount of data, restricted by the available memory (and/or storage) on its respective node. 
+In this assignment, you will leverage sharding as a solution to overcome this memory capacity limitation.
 
-Specifically, you will apply sharding to the `frontend` and `profile` microservices to scale the memory capacity of the `profile` microservice.
+Specifically, you will implement sharding logic in the `frontend` and `profile` microservices to scale out the memory capacity of the `profile` microservice.
 
 #### Extend the Profile Microservice for Sharding
 

@@ -1,8 +1,8 @@
 # Homework Assignment 4
 
-Submission Deadline: April 8, 2024
+Submission Deadline: April 19, 2024
 
-This is an individual assignment to be conducted individually by each student.
+This is a group assignment to be conducted in teams of two students.
 
 ## Sharding Hotel App
 
